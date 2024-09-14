@@ -1,19 +1,28 @@
 {
 	"name": "server",
 	"type": "module",
-	"main": "index.js",
 	"scripts": {
-		"dev": "node --watch --experimental-transform-types src/http/server.ts",
+		"build": "tsc --noEmit",
+		"dev": "node --watch --experimental-transform-types --env-file=.env src/http/server.ts",
 		"fmt": "biome check --write",
-		"lint": "biome check"
+		"lint": "biome check",
+		"seed": "node --experimental-transform-types --env-file=.env src/db/seed.ts"
 	},
 	"dependencies": {
+		"@paralleldrive/cuid2": "^2.2.2",
+		"dayjs": "^1.11.13",
 		"drizzle-orm": "^0.33.0",
-		"fastify": "^4.28.1"
+		"fastify": "^4.28.1",
+		"fastify-type-provider-zod": "^2.0.0",
+		"postgres": "^3.4.4",
+		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.0",
+		"@tsconfig/node22": "^22.0.0",
+		"@tsconfig/strictest": "^2.0.5",
 		"@types/node": "^22.5.5",
-		"typescript": "^5.6.2"
+		"drizzle-kit": "^0.24.2",
+		"typescript": "~5.6.2"
 	}
 }

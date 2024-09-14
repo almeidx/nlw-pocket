@@ -1,0 +1,12 @@
+{
+	"extends": ["@tsconfig/node22/tsconfig.json", "@tsconfig/strictest/tsconfig.json"],
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"checkJs": false,
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"noEmit": true,
+		"noPropertyAccessFromIndexSignature": false,
+		"resolveJsonModule": true
+	}
+}
