@@ -9,3 +9,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: inorbit
+    volumes:
+      - pg_data:/bitnami/postgresql
+
+volumes:
+  pg_data:
+    driver: local

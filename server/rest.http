@@ -12,6 +12,10 @@ GET http://localhost:3333/pending-goals
 
 ###
 
+GET http://localhost:3333/week-summary
+
+###
+
 POST http://localhost:3333/completions
 Content-Type: application/json
 

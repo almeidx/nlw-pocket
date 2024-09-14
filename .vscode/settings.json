@@ -1,6 +1,13 @@
 {
 	"cSpell.words": [
+		"hookform",
 		"inorbit",
-		"paralleldrive"
-	]
+		"paralleldrive",
+		"tanstack",
+		"valibot"
+	],
+
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }

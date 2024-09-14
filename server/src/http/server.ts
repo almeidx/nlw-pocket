@@ -1,57 +1,24 @@
+import fastifyCors from "@fastify/cors";
 import fastify from "fastify";
 import { type ZodTypeProvider, serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
-import { z } from "zod";
-import { createGoalCompletion } from "../functions/create-goal-completion.ts";
-import { createGoal } from "../functions/create-goal.ts";
-import { getWeekPendingGoals } from "../functions/get-week-pending-goals.ts";
+import { createGoalCompletionRoute } from "../routes/create-completion.ts";
+import { createGoalRoute } from "../routes/create-goal.ts";
+import { getPendingGoalsRoute } from "../routes/get-pending-goals.ts";
+import { getWeekSummaryRoute } from "../routes/get-week-summary.ts";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
-app.get("/pending-goals", async () => {
-	const pendingGoals = await getWeekPendingGoals();
-
-	return { pendingGoals };
+await app.register(fastifyCors, {
+	origin: "*",
 });
 
-app.post(
-	"/goals",
-	{
-		schema: {
-			body: z.object({
-				title: z.string(),
-				desiredWeeklyFrequency: z.number().int().min(1).max(7),
-			}),
-		},
-	},
-	async (request, reply) => {
-		const { title, desiredWeeklyFrequency } = request.body;
-
-		await createGoal({ title, desiredWeeklyFrequency });
-
-		reply.statusCode = 201;
-	},
-);
-
-app.post(
-	"/completions",
-	{
-		schema: {
-			body: z.object({
-				goalId: z.string(),
-			}),
-		},
-	},
-	async (request, reply) => {
-		const { goalId } = request.body;
-
-		await createGoalCompletion({ goalId });
-
-		reply.statusCode = 201;
-	},
-);
+await app.register(getPendingGoalsRoute);
+await app.register(getWeekSummaryRoute);
+await app.register(createGoalRoute);
+await app.register(createGoalCompletionRoute);
 
 await app.listen({ port: 3333 });
 
