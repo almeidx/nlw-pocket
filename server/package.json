@@ -1,0 +1,19 @@
+{
+	"name": "server",
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"dev": "node --watch --experimental-transform-types src/http/server.ts",
+		"fmt": "biome check --write",
+		"lint": "biome check"
+	},
+	"dependencies": {
+		"drizzle-orm": "^0.33.0",
+		"fastify": "^4.28.1"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.0",
+		"@types/node": "^22.5.5",
+		"typescript": "^5.6.2"
+	}
+}
